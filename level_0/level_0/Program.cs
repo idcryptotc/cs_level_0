@@ -502,7 +502,27 @@ namespace level_0
 
 		private static void solution_08()
 		{
-			throw new NotImplementedException();
+			int a1 = 1;
+			int a2 = 1;
+			const int arrayLength = 30;
+			int[] array = new int[arrayLength];
+			array[0] = a1;
+			array[1] = a2;
+
+			for (int i = 2; i < arrayLength; ++i)
+			{
+				array[i] = array[(i + 1) / 2 - 1] + array[i - 2];
+			}
+
+			for (int i = 0; i < arrayLength; ++i)
+			{
+				Console.Write(array[i] + " ");
+
+				if (i % 10 == 9)
+				{
+					Console.WriteLine();
+				}
+			}
 		}
 
 		private static void solution_07()
