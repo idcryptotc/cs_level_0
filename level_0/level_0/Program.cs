@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using Point = System.Drawing.Point;
+using Size = System.Drawing.Size;
 
 namespace level_0
 {
@@ -123,11 +124,10 @@ namespace level_0
 				case 9:
 					{
 						Console.WriteLine("9-135. Получить на экране изображение действующих");
-						Console.WriteLine("электронных часов, показывающих текущее время.Шаблоны");
+						Console.WriteLine("электронных часов, показывающих текущее время. Шаблоны");
 						Console.WriteLine("используемых цифр должны соответствовать обычному для");
 						Console.WriteLine("электронных часов семисегментному шаблону.");
 						solution_09();
-						Console.ReadKey(true);
 						break;
 					}
 				case 10:
@@ -497,7 +497,280 @@ namespace level_0
 
 		private static void solution_09()
 		{
-			throw new NotImplementedException();
+			[DllImport("kernel32.dll")]
+			static extern IntPtr GetConsoleWindow();
+			Console.WriteLine("\nЖми кнопку для рисования...");
+			Console.ReadKey(true);
+			Console.Clear();
+			Graphics g = Graphics.FromHwnd(GetConsoleWindow());
+			Brush brush = Brushes.Aqua;
+			Point[,,] fullNumberTemplate =
+				new Point[,,]
+				{
+					{
+						{//верхний сегмент
+							new Point(0+30, 30),
+							new Point(100+30, 30),
+							new Point(70+30, 50),
+							new Point(30+30, 50)
+						},
+						{//левый верхний сегмент
+							new Point(0+30, 30),
+							new Point(0+30, 130),
+							new Point(20+30, 100),
+							new Point(20+30, 60)
+						},
+						{//правый верхний сегмент
+							new Point(100+30, 30),
+							new Point(100+30, 130),
+							new Point(80+30, 100),
+							new Point(80+30, 60)
+						},
+						{//верхний средний сегмент
+							new Point(0+30, 130),
+							new Point(100+30, 130),
+							new Point(70+30, 120),
+							new Point(30+30, 120)
+						},
+						{//нижний средний сегмент
+							new Point(0+30, 130),
+							new Point(100+30, 130),
+							new Point(70+30, 140),
+							new Point(30+30, 140)
+						},
+						{//левый нижний сегмент
+							new Point(0+30, 130),
+							new Point(0+30, 230),
+							new Point(20+30, 200),
+							new Point(20+30, 160)
+						},
+						{//правый нижний сегмент
+							new Point(100+30, 130),
+							new Point(100+30, 230),
+							new Point(80+30, 200),
+							new Point(80+30, 160)
+						},
+						{//нижний сегмент
+							new Point(0+30, 230),
+							new Point(100+30, 230),
+							new Point(70+30, 210),
+							new Point(30+30, 210)
+						}
+					},
+					{//вторая цифра
+						{//верхний сегмент
+							new Point(0+150, 30),
+							new Point(100+150, 30),
+							new Point(70+150, 50),
+							new Point(30+150, 50)
+						},
+						{//левый верхний сегмент
+							new Point(0+150, 30),
+							new Point(0+150, 130),
+							new Point(20+150, 100),
+							new Point(20+150, 60)
+						},
+						{//правый верхний сегмент
+							new Point(100+150, 30),
+							new Point(100+150, 130),
+							new Point(80+150, 100),
+							new Point(80+150, 60)
+						},
+						{//верхний средний сегмент
+							new Point(0+150, 130),
+							new Point(100+150, 130),
+							new Point(70+150, 120),
+							new Point(30+150, 120)
+						},
+						{//нижний средний сегмент
+							new Point(0+150, 130),
+							new Point(100+150, 130),
+							new Point(70+150, 140),
+							new Point(30+150, 140)
+						},
+						{//левый нижний сегмент
+							new Point(0+150, 130),
+							new Point(0+150, 230),
+							new Point(20+150, 200),
+							new Point(20+150, 160)
+						},
+						{//правый нижний сегмент
+							new Point(100+150, 130),
+							new Point(100+150, 230),
+							new Point(80+150, 200),
+							new Point(80+150, 160)
+						},
+						{//нижний сегмент
+							new Point(0+150, 230),
+							new Point(100+150, 230),
+							new Point(70+150, 210),
+							new Point(30+150, 210)
+						}
+					},
+					{//третья цифра
+						{//верхний сегмент
+							new Point(0+300, 30),
+							new Point(100+300, 30),
+							new Point(70+300, 50),
+							new Point(30+300, 50)
+						},
+						{//левый верхний сегмент
+							new Point(0+300, 30),
+							new Point(0+300, 130),
+							new Point(20+300, 100),
+							new Point(20+300, 60)
+						},
+						{//правый верхний сегмент
+							new Point(100+300, 30),
+							new Point(100+300, 130),
+							new Point(80+300, 100),
+							new Point(80+300, 60)
+						},
+						{//верхний средний сегмент
+							new Point(0+300, 130),
+							new Point(100+300, 130),
+							new Point(70+300, 120),
+							new Point(30+300, 120)
+						},
+						{//нижний средний сегмент
+							new Point(0+300, 130),
+							new Point(100+300, 130),
+							new Point(70+300, 140),
+							new Point(30+300, 140)
+						},
+						{//левый нижний сегмент
+							new Point(0+300, 130),
+							new Point(0+300, 230),
+							new Point(20+300, 200),
+							new Point(20+300, 160)
+						},
+						{//правый нижний сегмент
+							new Point(100+300, 130),
+							new Point(100+300, 230),
+							new Point(80+300, 200),
+							new Point(80+300, 160)
+						},
+						{//нижний сегмент
+							new Point(0+300, 230),
+							new Point(100+300, 230),
+							new Point(70+300, 210),
+							new Point(30+300, 210)
+						}
+					},
+					{//четвёртая цифра
+						{//верхний сегмент
+							new Point(0+420, 30),
+							new Point(100+420, 30),
+							new Point(70+420, 50),
+							new Point(30+420, 50)
+						},
+						{//левый верхний сегмент
+							new Point(0+420, 30),
+							new Point(0+420, 130),
+							new Point(20+420, 100),
+							new Point(20+420, 60)
+						},
+						{//правый верхний сегмент
+							new Point(100+420, 30),
+							new Point(100+420, 130),
+							new Point(80+420, 100),
+							new Point(80+420, 60)
+						},
+						{//верхний средний сегмент
+							new Point(0+420, 130),
+							new Point(100+420, 130),
+							new Point(70+420, 120),
+							new Point(30+420, 120)
+						},
+						{//нижний средний сегмент
+							new Point(0+420, 130),
+							new Point(100+420, 130),
+							new Point(70+420, 140),
+							new Point(30+420, 140)
+						},
+						{//левый нижний сегмент
+							new Point(0+420, 130),
+							new Point(0+420, 230),
+							new Point(20+420, 200),
+							new Point(20+420, 160)
+						},
+						{//правый нижний сегмент
+							new Point(100+420, 130),
+							new Point(100+420, 230),
+							new Point(80+420, 200),
+							new Point(80+420, 160)
+						},
+						{//нижний сегмент
+							new Point(0+420, 230),
+							new Point(100+420, 230),
+							new Point(70+420, 210),
+							new Point(30+420, 210)
+						}
+					}
+				};
+			bool[,] arraySegments =
+				new bool[10, 8]
+				{
+					{//0
+						true,true,true,false,false,true,true,true
+					},
+					{//1
+						false,false,true,false,false,false,true,false
+					},
+					{//2
+						true,false,true,true,true,true,false,true
+					},
+					{//3
+						true,false,true,true,true,false,true,true
+					},
+					{//4
+						false,true,true,true,true,false,true,false
+					},
+					{//5
+						true,true,false,true,true,false,true,true
+					},
+					{//6
+						true,true,false,true,true,true,true,true
+					},
+					{//7
+						true,false,true,false,false,false,true,false
+					},
+					{//8
+						true,true,true,true,true,true,true,true
+					},
+					{//9
+						true,true,true,true,true,false,true,true
+					}
+				};
+			string time = 
+				(DateTime.Now.Hour < 10 ? ("0" + DateTime.Now.Hour.ToString()) : DateTime.Now.Hour.ToString()) + 
+				(DateTime.Now.Minute < 10 ? ("0" + DateTime.Now.Minute.ToString()) : DateTime.Now.Minute.ToString());
+
+			for (int i = 0; i < time.Length; ++i)
+			{
+				for (int j = 0; j < 8; ++j)
+				{
+					if (!arraySegments[time[i]-'0', j])
+					{
+						continue;
+					}
+
+					Point[] temp = new Point[4];
+
+					for (int k = 0; k < 4; ++k)
+					{
+						temp[k] = fullNumberTemplate[i, j, k];
+					}
+
+					g.FillPolygon(brush, temp);
+				}
+			}
+
+			g.FillEllipse(brush, 270, 100, 10, 10);
+			g.FillEllipse(brush, 270, 160, 10, 10);
+			Console.WriteLine("Это просто снимок в ремени в текущий момент");
+			Console.ReadKey(true);
+			g.Clear(Color.Black);
 		}
 
 		private static void solution_08()
