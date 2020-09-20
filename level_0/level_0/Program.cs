@@ -518,7 +518,63 @@ namespace level_0
 
 		private static void solution_05()
 		{
-			throw new NotImplementedException();
+			int n;
+			int a;
+		input_5_1:
+			Console.Write("Введите n: ");
+			
+			try
+			{
+				n = Convert.ToInt32(Console.ReadLine());
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+				goto input_5_1;
+			}
+		
+			int[] array = new int[n];
+			Random rand = new Random();
+
+			for (int i = 0; i < n; ++i)
+			{
+				array[i] = rand.Next(-100, 101);
+				Console.Write(array[i] + "\t");
+			}
+
+		input_5_2:
+			Console.Write("\nВведите a: ");
+
+			try
+			{
+				a = Convert.ToInt32(Console.ReadLine());
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+				goto input_5_2;
+			}
+
+			int sum = -10;
+			bool isSum = false;
+
+			for (int i = 0; i < n; ++i)
+			{
+				if (array[i] == a && !isSum)
+				{
+					isSum = true;
+					sum = 0;
+					continue;
+				}
+
+				if (isSum)
+				{
+					sum += array[i];
+				}
+			}
+
+			Console.WriteLine(isSum ? ("Сумма: " + sum.ToString()) : sum.ToString());
+
 		}
 
 		private static void solution_04()
