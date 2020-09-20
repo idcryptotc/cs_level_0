@@ -132,7 +132,7 @@ namespace level_0
 					}
 				case 10:
 					{
-						Console.WriteLine("10-359. Даны натуральное число n , символы s1,..., s10 , t1,..., tn *).");
+						Console.WriteLine("10-359. Даны натуральное число n , символы s1,..., s10 , t1,..., tn).");
 						Console.WriteLine("Получить все не превосходящие n − 9 натуральные i, для которых");
 						Console.WriteLine("s1 = ti, s2 = ti + 1, ..., s10 = ti + 9.");
 						solution_10();
@@ -392,107 +392,165 @@ namespace level_0
 
 		private static void solution_30()
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		private static void solution_29()
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		private static void solution_28()
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		private static void solution_27()
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		private static void solution_26()
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		private static void solution_25()
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		private static void solution_24()
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		private static void solution_23()
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		private static void solution_22()
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		private static void solution_21()
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		private static void solution_20()
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		private static void solution_19()
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		private static void solution_18()
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		private static void solution_17()
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		private static void solution_16()
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		private static void solution_15()
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		private static void solution_14()
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		private static void solution_13()
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		private static void solution_12()
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		private static void solution_11()
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		private static void solution_10()
 		{
-			throw new NotImplementedException();
+			const int sLength = 10;
+			char[] s = new char[sLength+1];
+		input_10:
+			Console.WriteLine("Введите n: ");
+			uint n;
+
+			try
+			{
+				n = Convert.ToUInt32(Console.ReadLine());
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+				goto input_10;
+			}
+
+			if (n == 0)
+			{
+				Console.WriteLine("n - не натуральное");
+				goto input_10;
+			}
+
+			char[] t = new char[n];
+			Random rs = new Random();
+
+			for (int i = 0; i < sLength; ++i)
+			{
+				s[i] = (char)rs.Next('a','c');
+			}
+
+			Console.WriteLine(s);
+
+			for (int i = 0; i < n; ++i)
+			{
+				t[i] = (char)rs.Next('a', 'c');
+			}
+
+			Console.WriteLine(t);
+
+			for (int i = 0; i < n - 9; ++i)
+			{
+				if (s[0] == t[i])
+				{
+					for (int j = 0; j < 10; ++j)
+					{
+						if (s[j] != t[j + i])
+						{
+							break;
+						}
+
+						if (j == 9)
+						{
+							Console.Write(i + " ");
+						}
+					}
+				}
+			}
+
+			Console.WriteLine();
 		}
 
 		private static void solution_09()
