@@ -99,7 +99,6 @@ namespace level_0
 						Console.WriteLine("Даны семь действительных положительных чисел a1, a2, ..., a7.");
 						Console.WriteLine("Построить гистограмму для этих значений.");
 						solution_06();
-						Console.ReadKey(true);
 						break;
 					}
 				case 7:
@@ -513,7 +512,44 @@ namespace level_0
 
 		private static void solution_06()
 		{
-			throw new NotImplementedException();
+			[DllImport("kernel32.dll")]
+			static extern IntPtr GetConsoleWindow();
+			Console.WriteLine("\nЖми кнопку для рисования...");
+			Console.ReadKey(true);
+			Console.Clear();
+			Random r = new Random();
+			const int arrayLength = 7;
+			int[] array = new int[arrayLength];
+
+			for (int i = 0; i < arrayLength; ++i)
+			{
+				array[i] = r.Next(1, 10);
+				Console.Write(array[i] + " ");
+			}
+
+			Graphics g = Graphics.FromHwnd(GetConsoleWindow());
+			Pen[] pen = new Pen[]
+			{ 
+				new Pen(Color.Red, 2),
+				new Pen(Color.Orange, 2),
+				new Pen(Color.Yellow, 2),
+				new Pen(Color.Green, 2),
+				new Pen(Color.Cyan, 2),
+				new Pen(Color.Blue, 2),
+				new Pen(Color.Violet, 2),
+				new Pen(Color.White, 2)
+			};
+			int x = 10;
+			int y = 120;
+			g.DrawLine(pen[7], x, y, 160, y);
+
+			for (int i = 0; i < arrayLength; ++i)
+			{
+				g.DrawRectangle(pen[i], x + 20 * i + 10, y - 10 * array[i], 10, 10 * array[i]);
+			}
+
+			Console.ReadKey(true);
+			g.Clear(Color.Black);
 		}
 
 		private static void solution_05()
