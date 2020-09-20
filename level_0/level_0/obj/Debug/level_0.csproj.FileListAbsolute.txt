@@ -1,7 +1,0 @@
-E:\Troublemakers_company\source\cs_level_0\level_0\level_0\bin\Debug\level_0.exe.config
-E:\Troublemakers_company\source\cs_level_0\level_0\level_0\bin\Debug\level_0.exe
-E:\Troublemakers_company\source\cs_level_0\level_0\level_0\bin\Debug\level_0.pdb
-E:\Troublemakers_company\source\cs_level_0\level_0\level_0\obj\Debug\level_0.csprojAssemblyReference.cache
-E:\Troublemakers_company\source\cs_level_0\level_0\level_0\obj\Debug\level_0.csproj.CoreCompileInputs.cache
-E:\Troublemakers_company\source\cs_level_0\level_0\level_0\obj\Debug\level_0.exe
-E:\Troublemakers_company\source\cs_level_0\level_0\level_0\obj\Debug\level_0.pdb
