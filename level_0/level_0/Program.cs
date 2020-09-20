@@ -1,8 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Forms;
+using Point = System.Drawing.Point;
 
 namespace level_0
 {
@@ -62,7 +68,6 @@ namespace level_0
 						Console.WriteLine("г) шестиугольник с вершинами (120, 100), (140, 120), (140, 140),(120, 160), (100, 140), (100, 120)");
 						Console.WriteLine("д) закрасить фигуры");
 						solution_03();
-						Console.ReadKey(true);
 						break;
 					}
 				case 4:
@@ -523,7 +528,64 @@ namespace level_0
 
 		private static void solution_03()
 		{
-			throw new NotImplementedException();
+			[DllImport("kernel32.dll")]
+			static extern IntPtr GetConsoleWindow();
+			Console.WriteLine("\nЖми кнопку для рисования...");
+			Console.ReadKey(true);
+			Console.Clear();
+			Graphics g = Graphics.FromHwnd(GetConsoleWindow());
+			Pen pen = new Pen(Color.Red, 2);
+			Brush brush = Brushes.Aqua;
+			Point[] treangle = 
+				new Point[]
+				{
+					new Point(100, 100), 
+					new Point(150, 100), 
+					new Point(80, 170)
+				};
+			g.DrawPolygon(pen, treangle);
+			g.FillPolygon(brush, treangle);
+			Point[] rectangle =
+				new Point[]
+				{
+					new Point(180, 80),
+					new Point(270, 80),
+					new Point(270, 150),
+					new Point(180, 150)
+				};
+			pen = Pens.Brown;
+			brush = Brushes.Yellow;
+			g.DrawPolygon(pen, rectangle);
+			g.FillPolygon(brush, rectangle);
+			Point[] pentagon =
+				new Point[]
+				{
+					new Point(300, 100),
+					new Point(350, 100),
+					new Point(370, 120),
+					new Point(350, 140),
+					new Point(300, 120)
+				};
+			pen = Pens.Blue;
+			brush = Brushes.Green;
+			g.DrawPolygon(pen, pentagon);
+			g.FillPolygon(brush, pentagon);
+			Point[] hexagon =
+				new Point[]
+				{
+					new Point(420, 100),
+					new Point(440, 120),
+					new Point(440, 140),
+					new Point(420, 160),
+					new Point(400, 140),
+					new Point(400, 120)
+				};
+			pen = Pens.Pink;
+			brush = Brushes.Orange;
+			g.DrawPolygon(pen, hexagon);
+			g.FillPolygon(brush, hexagon);
+			Console.ReadKey(true);
+			g.Clear(Color.Black);
 		}
 
 		private static void solution_02()
