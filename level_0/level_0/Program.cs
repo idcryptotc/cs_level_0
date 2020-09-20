@@ -523,7 +523,66 @@ namespace level_0
 
 		private static void solution_04()
 		{
-			throw new NotImplementedException();
+			int p;
+			int q;
+		input_4_1:
+			Console.Write("Введите p: ");
+
+			try
+			{
+				p = Convert.ToInt32(Console.ReadLine());
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+				goto input_4_1;
+			}
+
+		input_4_2:
+			Console.Write("Введите q: ");
+
+			try
+			{
+				q = Convert.ToInt32(Console.ReadLine());
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+				goto input_4_2;
+			}
+
+			if (p <= q || q < 0)
+			{
+				Console.WriteLine("Не соответствует условию p > q >= 0. Вводи снова");
+				goto input_4_1;
+			}
+
+			const int arrayLength = 67;
+			int[] array = new int[arrayLength];
+			Random rand = new Random();
+
+			for (int i = 0; i < arrayLength; ++i)
+			{
+				array[i] = rand.Next(-100, 101);
+				Console.Write(array[i] + "\t");
+			}
+
+			Console.WriteLine("\n");
+
+			for (int i = 0; i < arrayLength; ++i)
+			{
+				if (Math.Abs(array[i]) % p == 0)
+				{
+					array[i] = 0;
+				}
+			}
+
+			for (int i = 0; i < arrayLength; ++i)
+			{
+				Console.Write(array[i] + "\t");
+			}
+
+			Console.WriteLine();
 		}
 
 		private static void solution_03()
