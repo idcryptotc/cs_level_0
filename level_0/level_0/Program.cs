@@ -507,7 +507,51 @@ namespace level_0
 
 		private static void solution_07()
 		{
-			throw new NotImplementedException();
+			uint n;
+		input_7:
+			Console.Write("Введите n: ");
+			
+			try
+			{
+				n = Convert.ToUInt32(Console.ReadLine());
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+				goto input_7;
+			}
+
+			if (n == 0)
+			{
+				Console.WriteLine("0 - не подходит. Вводи снова");
+				goto input_7;
+			}
+			
+			char[] s = new char[n+1];
+			Random r = new Random();
+
+			for (int i = 0; i < n + 1; ++i)
+			{
+				s[i] = (char)r.Next('а', 'я');
+			}
+
+			Console.WriteLine(s);
+			bool isFound = false;
+
+			for (int i = 0; i < n; ++i)
+			{
+				if (s[i] == 'а' && s[i] == s[i + 1])
+				{
+					Console.WriteLine("i = {0}", i);
+					isFound = true;
+					break;
+				}
+			}
+
+			if (!isFound)
+			{
+				Console.WriteLine(0);
+			}
 		}
 
 		private static void solution_06()
