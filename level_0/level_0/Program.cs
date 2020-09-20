@@ -528,7 +528,25 @@ namespace level_0
 
 		private static void solution_02()
 		{
-			throw new NotImplementedException();
+			const int arrayLength = 70;
+			double[] array = new double[arrayLength + 1];
+			Random randomNumber = new Random();
+
+			for (int i = 0; i < arrayLength; ++i)
+			{
+				array[i] = randomNumber.Next(-9, 10);
+				Console.Write(array[i] + "\t");
+			}
+
+			Console.WriteLine();
+			array[arrayLength] = array[0];
+
+			for (int i = 1; i < arrayLength + 1; ++i)
+			{
+				Console.Write(array[i] + "\t");
+			}
+
+			Console.WriteLine();
 		}
 
 		private static void solution_01()
