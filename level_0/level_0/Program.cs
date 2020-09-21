@@ -826,7 +826,7 @@ namespace level_0
 
 			g.FillEllipse(brush, 270, 100, 10, 10);
 			g.FillEllipse(brush, 270, 160, 10, 10);
-			Console.WriteLine("Это просто снимок в ремени в текущий момент");
+			Console.WriteLine("Это просто снимок времени в текущий момент");
 			Console.ReadKey(true);
 			g.Clear(Color.Black);
 		}
