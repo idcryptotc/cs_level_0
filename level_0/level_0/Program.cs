@@ -141,10 +141,10 @@ namespace level_0
 					}
 				case 11:
 					{
-						Console.WriteLine("11-554.Дано натуральное число n.Получить все пифагоровы");
+						Console.WriteLine("11-554. Дано натуральное число n.Получить все пифагоровы");
 						Console.WriteLine("тройки натуральных чисел, каждое из которых не превосходит n, т.е.");
 						Console.WriteLine("все такие тройки натуральных чисел a, b, c, что");
-						Console.WriteLine("a2 + b2 = c2(a ≤ b ≤ c ≤ n).");
+						Console.WriteLine("a2 + b2 = c2(a <= b <= c <= n).");
 						solution_11();
 						Console.ReadKey(true);
 						break;
@@ -487,7 +487,48 @@ namespace level_0
 
 		private static void solution_11()
 		{
-			
+			uint n;
+
+		input_11:
+			Console.Write("Введите n: ");
+
+			try
+			{
+				n = Convert.ToUInt32(Console.ReadLine());
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+				goto input_11;
+			}
+
+			if (n == 0)
+			{
+				Console.WriteLine("n - не натуральное");
+				goto input_11;
+			}
+
+			bool isFound = false;
+
+			for (int a = 1; a <= n; ++a)
+			{
+				for (int b = a; b <= n; ++b)
+				{
+					for (int c = b; c <= n; ++c)
+					{
+						if (a * a + b * b == c * c)
+						{
+							isFound = true;
+							Console.WriteLine("{0}, {1}, {2}", a, b, c);
+						}
+					}
+				}
+			}
+
+			if (!isFound)
+			{
+				Console.WriteLine("Тройки не найдены");
+			}
 		}
 
 		private static void solution_10()
