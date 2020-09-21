@@ -158,7 +158,6 @@ namespace level_0
 						Console.WriteLine("длины его сторон.Построить и закрасить каким - либо цветами");
 						Console.WriteLine("прямоугольники, заданные последовательностью a0, a1, a2, ..., 4n−1 a.");
 						solution_12();
-						Console.ReadKey(true);
 						break;
 					}
 				case 13:
@@ -482,7 +481,69 @@ namespace level_0
 
 		private static void solution_12()
 		{
-			
+			[DllImport("kernel32.dll")]
+			static extern IntPtr GetConsoleWindow();
+			uint n;
+
+		input_12:
+			Console.Write("Введите n: ");
+
+			try
+			{
+				n = Convert.ToUInt32(Console.ReadLine());
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+				goto input_12;
+			}
+
+			if (n == 0)
+			{
+				Console.WriteLine("n - не натуральное");
+				goto input_12;
+			}
+
+			Console.WriteLine("\nЖми кнопку для рисования...");
+			Console.ReadKey(true);
+			Console.Clear();
+			Graphics g = Graphics.FromHwnd(GetConsoleWindow());
+			Brush[] brush = new Brush[n];
+			Random rBrush = new Random();
+
+			for (int i = 0; i < n; ++i)
+			{
+				brush[i] = new SolidBrush(
+					Color.FromArgb
+					(
+						rBrush.Next(0,256), 
+						rBrush.Next(0, 256), 
+						rBrush.Next(0, 256)
+					));
+			}
+
+			Random r = new Random();
+			int[] array = new int[4 * n];
+
+			for (int i = 0; i < 4 * n; ++i)
+			{
+				array[i] = r.Next(1, 301);
+			}
+
+			for (int i = 0; i < 4 * n; i += 4)
+			{
+				g.FillRectangle
+				(
+					brush[i / 4],
+					array[i] - array[i + 2] / 2 + 200,
+					array[i + 1] - array[i + 3] / 2 + 100,
+					array[i + 2],
+					array[i + 3]
+				);
+			}
+
+			Console.ReadKey(true);
+			g.Clear(Color.Black);
 		}
 
 		private static void solution_11()
