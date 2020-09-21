@@ -544,6 +544,7 @@ namespace level_0
 
 			Console.ReadKey(true);
 			g.Clear(Color.Black);
+			g.Dispose();
 		}
 
 		private static void solution_11()
@@ -931,6 +932,7 @@ namespace level_0
 			Console.WriteLine("Это просто снимок времени в текущий момент");
 			Console.ReadKey(true);
 			g.Clear(Color.Black);
+			g.Dispose();
 		}
 
 		private static void solution_08()
@@ -1047,6 +1049,7 @@ namespace level_0
 
 			Console.ReadKey(true);
 			g.Clear(Color.Black);
+			g.Dispose();
 		}
 
 		private static void solution_05()
@@ -1234,6 +1237,7 @@ namespace level_0
 			g.FillPolygon(brush, hexagon);
 			Console.ReadKey(true);
 			g.Clear(Color.Black);
+			g.Dispose();
 		}
 
 		private static void solution_02()
