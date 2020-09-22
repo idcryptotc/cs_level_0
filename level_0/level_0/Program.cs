@@ -15,6 +15,8 @@ namespace level_0
 {
 	class Program
 	{
+		[DllImport("kernel32.dll")]
+		static extern IntPtr GetConsoleWindow();
 		static void Main(string[] args)
 		{
 			bool isNotExit = true;
@@ -163,12 +165,12 @@ namespace level_0
 				case 13:
 					{
 						Console.WriteLine("13-396. Дана действительная квадратная матрица порядка n.");
-						Console.WriteLine("Построить последовательность действительных чисел n a, ..., a 1 по");
-						Console.WriteLine("правилу: если в i - й строке матрицы элемент, принадлежащий главной");
-						Console.WriteLine("диагонали, отрицателен, то ai равно сумме элементов i - й строки,");
+						Console.WriteLine("Построить последовательность действительных чисел a1, ..., an по");
+						Console.WriteLine("правилу: если в i-й строке матрицы элемент, принадлежащий главной");
+						Console.WriteLine("диагонали, отрицателен, то ai равно сумме элементов i-й строки,");
 						Console.WriteLine("предшествующих первому отрицательному элементу;");
-						Console.WriteLine("в противном случае ai равно сумме последних элементов i - й строки, начиная с");
-						Console.WriteLine("первого по порядку неотрицательного элемента.");
+						Console.WriteLine("в противном случае ai равно сумме последних элементов i-й строки,");
+						Console.WriteLine("начиная с первого по порядку неотрицательного элемента.");
 						solution_13();
 						Console.ReadKey(true);
 						break;
@@ -476,13 +478,82 @@ namespace level_0
 
 		private static void solution_13()
 		{
-			
+			uint n;
+
+		input_13:
+			Console.Write("Введите n: ");
+
+			try
+			{
+				n = Convert.ToUInt32(Console.ReadLine());
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+				goto input_13;
+			}
+
+			if (n == 0)
+			{
+				Console.WriteLine("0? А смысл? Вводи снова");
+				goto input_13;
+			}
+
+			int[,] array = new int[n, n];
+			Random r = new Random();
+
+			for (int i = 0; i < n; ++i)
+			{
+				for (int j = 0; j < n; ++j)
+				{
+					array[i, j] = r.Next(-9, 10);
+					Console.Write("{0,2} ", array[i, j]);
+				}
+
+				Console.WriteLine();
+			}
+
+			Console.WriteLine();
+			int[] arrayOut = new int[n];
+
+			for (int i = 0; i < n; ++i)
+			{
+				if (array[i, i] < 0)
+				{
+					for (int j = 0; array[i, j] >= 0; ++j)
+					{
+						arrayOut[i] += array[i, j];
+					}
+				}
+				else
+				{
+					bool isFirstPositive = false;
+
+					for (int j = 0; j < n; ++j)
+					{
+						if (!isFirstPositive && array[i, j] >= 0)
+						{
+							isFirstPositive = true;
+						}
+
+						if (isFirstPositive)
+						{
+							arrayOut[i] += array[i, j];
+						}
+					}
+				}
+			}
+
+			for (int i = 0; i < n; ++i)
+			{
+				Console.Write(arrayOut[i] + " ");
+			}
+
+			Console.WriteLine();
 		}
 
 		private static void solution_12()
 		{
-			[DllImport("kernel32.dll")]
-			static extern IntPtr GetConsoleWindow();
 			uint n;
 
 		input_12:
@@ -544,7 +615,6 @@ namespace level_0
 
 			Console.ReadKey(true);
 			g.Clear(Color.Black);
-			g.Dispose();
 		}
 
 		private static void solution_11()
@@ -658,8 +728,6 @@ namespace level_0
 
 		private static void solution_09()
 		{
-			[DllImport("kernel32.dll")]
-			static extern IntPtr GetConsoleWindow();
 			Console.WriteLine("\nЖми кнопку для рисования...");
 			Console.ReadKey(true);
 			Console.Clear();
@@ -932,7 +1000,6 @@ namespace level_0
 			Console.WriteLine("Это просто снимок времени в текущий момент");
 			Console.ReadKey(true);
 			g.Clear(Color.Black);
-			g.Dispose();
 		}
 
 		private static void solution_08()
@@ -1011,8 +1078,6 @@ namespace level_0
 
 		private static void solution_06()
 		{
-			[DllImport("kernel32.dll")]
-			static extern IntPtr GetConsoleWindow();
 			Console.WriteLine("\nЖми кнопку для рисования...");
 			Console.ReadKey(true);
 			Console.Clear();
@@ -1049,7 +1114,6 @@ namespace level_0
 
 			Console.ReadKey(true);
 			g.Clear(Color.Black);
-			g.Dispose();
 		}
 
 		private static void solution_05()
@@ -1179,8 +1243,6 @@ namespace level_0
 
 		private static void solution_03()
 		{
-			[DllImport("kernel32.dll")]
-			static extern IntPtr GetConsoleWindow();
 			Console.WriteLine("\nЖми кнопку для рисования...");
 			Console.ReadKey(true);
 			Console.Clear();
@@ -1237,7 +1299,6 @@ namespace level_0
 			g.FillPolygon(brush, hexagon);
 			Console.ReadKey(true);
 			g.Clear(Color.Black);
-			g.Dispose();
 		}
 
 		private static void solution_02()
@@ -1288,8 +1349,8 @@ namespace level_0
 				goto input_1;
 			}
 
-			double x = 0; 
-			double y = 0;
+			double x; 
+			double y;
 
 			for (int i = 2; i <= n; ++i)
 			{
