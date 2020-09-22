@@ -17,6 +17,7 @@ namespace level_0
 	{
 		[DllImport("kernel32.dll")]
 		static extern IntPtr GetConsoleWindow();
+		delegate double f14(double a, double b, double c);
 		static void Main(string[] args)
 		{
 			bool isNotExit = true;
@@ -473,7 +474,42 @@ namespace level_0
 
 		private static void solution_14()
 		{
+			double s;
+			double t;
+		input_14_1:
+			Console.Write("Введите s: ");
+
+			try
+			{
+				s = Convert.ToDouble(Console.ReadLine());
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+				goto input_14_1;
+			}
+
+		input_14_2:
+			Console.Write("Введите t: ");
 			
+			try
+			{
+				t = Convert.ToDouble(Console.ReadLine());
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+				goto input_14_2;
+			}
+
+			f14 f = delegate (double a, double b, double c)
+			{
+
+				return (2 * a - b - Math.Sin(c)) / (5 + Math.Abs(c));
+			};
+
+			double result = f(t, -2 * s, 1.17) + f(2.2, t, s - t);
+			Console.WriteLine("Результат: {0}", result);
 		}
 
 		private static void solution_13()
