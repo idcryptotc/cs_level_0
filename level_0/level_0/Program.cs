@@ -464,7 +464,49 @@ namespace level_0
 
 		private static void solution_16()
 		{
-			
+			uint n;
+
+		input_16:
+			Console.Write("Введите n: ");
+
+			try
+			{
+				n = Convert.ToUInt32(Console.ReadLine());
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+				goto input_16;
+			}
+
+			if (n == 0)
+			{
+				Console.WriteLine("n - не натуральное");
+				goto input_16;
+			}
+
+			uint[] array = new uint[n];
+			Random r = new Random();
+
+			for (uint i = 0; i < n; ++i)
+			{
+				array[i] = (uint)r.Next(1, 10);
+				Console.Write(array[i] + " ");
+			}
+
+			for (uint i = 0; i < n-1; ++i)
+			{
+				for (uint j = i + 1; j < n; ++j)
+				{
+					if (array[i] == array[j])
+					{
+						Console.WriteLine("\nСовпадающие числа имеются");
+						return;
+					}
+				}
+			}
+
+			Console.WriteLine("\nСовпадающих чисел не обнаружено");
 		}
 
 		private static void solution_15()
