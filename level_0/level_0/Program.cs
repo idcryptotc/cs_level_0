@@ -206,7 +206,7 @@ namespace level_0
 					}
 				case 17:
 					{
-						Console.WriteLine("17-810. Дано натуральное число п ( n ≤ 1000). Записать это число");
+						Console.WriteLine("17-810. Дано натуральное число п ( n <= 1000). Записать это число");
 						Console.WriteLine("русскими словами(семнадцать, двести пятьдесят три, тысяча и т.д.).");
 						solution_17();
 						Console.ReadKey(true);
@@ -459,7 +459,85 @@ namespace level_0
 
 		private static void solution_17()
 		{
-			
+			uint n;
+
+		input_17:
+			Console.Write("Введите n: ");
+
+			try
+			{
+				n = Convert.ToUInt32(Console.ReadLine());
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+				goto input_17;
+			}
+
+			if (n == 0)
+			{
+				Console.WriteLine("n - не натуральное");
+				goto input_17;
+			}
+
+			if (n > 1000)
+			{
+				Console.WriteLine("Великовато число, вводи снова");
+				goto input_17;
+			}
+
+			Dictionary<uint, string> rusWords = new Dictionary<uint, string>();
+			rusWords.Add(1, "один");
+			rusWords.Add(2, "два");
+			rusWords.Add(3, "три");
+			rusWords.Add(4, "четыре");
+			rusWords.Add(5, "пять");
+			rusWords.Add(6, "шесть");
+			rusWords.Add(7, "семь");
+			rusWords.Add(8, "восемь");
+			rusWords.Add(9, "девять");
+			rusWords.Add(10, "десять");
+			rusWords.Add(11, "одиннадцать");
+			rusWords.Add(12, "двенадцать");
+			rusWords.Add(13, "тринадцать");
+			rusWords.Add(14, "четырнадцать");
+			rusWords.Add(15, "пятнадцать");
+			rusWords.Add(16, "шестнадцать");
+			rusWords.Add(17, "семнадцать");
+			rusWords.Add(18, "восемнадцать");
+			rusWords.Add(19, "девятнадцать");
+			rusWords.Add(20, "двадцать");
+			rusWords.Add(30, "тридцать");
+			rusWords.Add(40, "сорок");
+			rusWords.Add(50, "пятьдесят");
+			rusWords.Add(60, "шестьдесят");
+			rusWords.Add(70, "семьдесят");
+			rusWords.Add(80, "восемьдесят");
+			rusWords.Add(90, "девяноста");
+			rusWords.Add(100, "сто");
+			rusWords.Add(200, "двести");
+			rusWords.Add(300, "триста");
+			rusWords.Add(400, "четыреста");
+			rusWords.Add(500, "пятьсот");
+			rusWords.Add(600, "шестьсот");
+			rusWords.Add(700, "семьсот");
+			rusWords.Add(800, "восемьсот");
+			rusWords.Add(900, "девятьсот");
+			rusWords.Add(1000, "тысяча");
+			rusWords.Add(0, "");
+
+			uint[] divNum = new uint[4];
+			divNum[0] = n / 1000 * 1000;
+			divNum[1] = n % 1000 - n % 100;
+			divNum[2] = n % 100 >= 20 ? n % 100 - n % 10 : n % 100 < 20 && n % 100 >= 10 ? n % 100 : 0;
+			divNum[3] = n % 100 < 20 && n % 100 >= 10 ? 0 : n % 10;
+			Console.WriteLine
+				(
+					rusWords[divNum[0]] + (divNum[0] == 0 ? "" : " ") + 
+					rusWords[divNum[1]] + (divNum[1] == 0 ? "" : " ") + 
+					rusWords[divNum[2]] + (divNum[2] == 0 ? "" : " ") + 
+					rusWords[divNum[3]] + (divNum[3] == 0 ? "" : " ")
+				);
 		}
 
 		private static void solution_16()
