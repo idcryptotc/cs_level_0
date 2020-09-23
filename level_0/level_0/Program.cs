@@ -206,7 +206,7 @@ namespace level_0
 					}
 				case 17:
 					{
-						Console.WriteLine("17-810. Дано натуральное число п ( n <= 1000). Записать это число");
+						Console.WriteLine("17-810. Дано натуральное число n ( n <= 1000). Записать это число");
 						Console.WriteLine("русскими словами(семнадцать, двести пятьдесят три, тысяча и т.д.).");
 						solution_17();
 						Console.ReadKey(true);
@@ -215,9 +215,9 @@ namespace level_0
 				case 18:
 					{
 						Console.WriteLine("18-832. В некоторой библиотеке последний четверг каждого");
-						Console.WriteLine("месяца - санитарный день.Дано натуральное число n, означающее");
-						Console.WriteLine("номер года.Получить по порядку все числа, на которые в январе,");
-						Console.WriteLine("феврале, . . . , декабре указанного года приходится санитарный день.");
+						Console.WriteLine("месяца - санитарный день. Дано натуральное число n, означающее");
+						Console.WriteLine("номер года. Получить по порядку все числа, на которые в январе,");
+						Console.WriteLine("феврале, ..., декабре указанного года приходится санитарный день.");
 						solution_18();
 						Console.ReadKey(true);
 						break;
@@ -454,7 +454,39 @@ namespace level_0
 
 		private static void solution_18()
 		{
-			
+			int n;
+		input_18:
+			Console.Write("Введите n: ");
+
+			try
+			{
+				n = Convert.ToInt32(Console.ReadLine());
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+				goto input_18;
+			}
+
+			DateTime data = DateTime
+				.Now
+				.AddYears(n - DateTime.Now.Year)
+				.AddDays(1 - DateTime.Now.Day)
+				.AddMonths(1 - DateTime.Now.Month);
+
+			Console.WriteLine("Санитарные дни: ");
+
+			for (int i = 1; i <= 12; ++i)
+			{
+				for (int j = 1; j <= 7; ++j)
+				{
+					if (data.AddMonths(i).AddDays(-j).DayOfWeek == DayOfWeek.Thursday)
+					{
+						Console.WriteLine(data.AddMonths(i).AddDays(-j).ToShortDateString());
+						break;
+					}
+				}
+			}
 		}
 
 		private static void solution_17()
@@ -543,7 +575,6 @@ namespace level_0
 		private static void solution_16()
 		{
 			uint n;
-
 		input_16:
 			Console.Write("Введите n: ");
 
