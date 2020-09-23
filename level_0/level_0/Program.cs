@@ -187,8 +187,8 @@ namespace level_0
 					}
 				case 15:
 					{
-						Console.WriteLine("15-1014. Магическим квадратом порядка п называется квадратная");
-						Console.WriteLine("таблица размера n× n, составленная из чисел 1, 2, ..., n2 так, что суммы");
+						Console.WriteLine("15-1014. Магическим квадратом порядка n называется квадратная");
+						Console.WriteLine("таблица размера n*n, составленная из чисел 1, 2, ..., n2 так, что суммы");
 						Console.WriteLine("по каждому столбцу, каждой строке и каждой из двух диагоналей");
 						Console.WriteLine("равны между собой.Дана целочисленная квадратная матрица порядка 5;");
 						Console.WriteLine("определить, является ли она магическим квадратом.");
@@ -469,7 +469,114 @@ namespace level_0
 
 		private static void solution_15()
 		{
-			
+			int[,] array = new int[5, 5];
+			Random r = new Random();
+
+			for (int i = 1; i < 26; ++i)
+			{
+				int a = r.Next(0, 5);
+				int b = r.Next(0, 5);
+
+				if (array[a, b] == 0)
+				{
+					array[a, b] = i;
+				}
+				else
+				{
+					--i;
+				}
+			}
+
+			/*Тестовый магический квадрат*//*
+			array = new int[,]
+				{
+					{ 11, 24, 7, 20, 3 },
+					{ 4, 12, 25, 8, 16 },
+					{ 17, 5, 13, 21, 9 },
+					{ 10, 18, 1, 14, 22 },
+					{ 23, 6, 19, 2, 15 }
+				};*/
+
+			for (int i = 0; i < 5; ++i)
+			{
+				for (int j = 0; j < 5; ++j)
+				{
+					Console.Write("{0,3} ", array[i, j]);
+				}
+
+				Console.WriteLine();
+			}
+
+			int temp = 0;
+
+			for (int i = 0; i < 5; ++i)
+			{
+				int tempStr = 0;
+
+				for (int j = 0; j < 5; ++j)
+				{
+					tempStr += array[i, j];
+				}
+
+				if (temp == 0)
+				{
+					temp = tempStr;
+				}
+				else
+				{
+					if (temp != tempStr)
+					{
+						Console.WriteLine("Не является магическим квадратом");
+						return;
+					}
+				}
+			}
+
+			for (int i = 0; i < 5; ++i)
+			{
+				int tempCol = 0;
+
+				for (int j = 0; j < 5; ++j)
+				{
+					tempCol += array[j, i];
+				}
+
+				if (temp != tempCol)
+				{
+					Console.WriteLine("Не является магическим квадратом");
+					return;
+				}
+			}
+
+			int tempDiag = 0;
+
+			for (int i = 0; i < 5; ++i)
+			{
+				tempDiag += array[i, i];
+			}
+
+			if (temp != tempDiag)
+			{
+				Console.WriteLine("Не является магическим квадратом");
+				return;
+			}
+
+			tempDiag = 0;
+
+			for (int i = 0; i < 5; ++i)
+			{
+				tempDiag += array[4-i, i];
+			}
+
+			if (temp != tempDiag)
+			{
+				Console.WriteLine("Не является магическим квадратом");
+				return;
+			}
+			else
+			{
+				Console.WriteLine("Является магическим квадратом");
+			}
 		}
 
 		private static void solution_14()
