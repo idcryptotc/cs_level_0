@@ -1053,7 +1053,9 @@ namespace level_0
 		private static void TimerTick(object state)
 		{
 			Graphics g = Graphics.FromHwnd(GetConsoleWindow());
-			g.Clear(Color.Black);
+			Bitmap bmp = new Bitmap(600, 300, g);
+			Graphics gBmp = Graphics.FromImage(bmp);
+			gBmp.Clear(Color.Black);
 			Brush brush = Brushes.Aqua;
 			Point[,,] fullNumberTemplate =
 				new Point[,,]
@@ -1313,20 +1315,23 @@ namespace level_0
 						temp[k] = fullNumberTemplate[i, j, k];
 					}
 
-					g.FillPolygon(brush, temp);
+					gBmp.FillPolygon(brush, temp);
 				}
 			}
 
 			if (isPoints)
 			{
-				g.FillEllipse(brush, 270, 100, 10, 10);
-				g.FillEllipse(brush, 270, 160, 10, 10);
+				gBmp.FillEllipse(brush, 270, 100, 10, 10);
+				gBmp.FillEllipse(brush, 270, 160, 10, 10);
 				isPoints = false;
 			}
 			else
 			{
 				isPoints = true;
 			}
+
+			g.DrawImageUnscaled(bmp, 0, 0);
+			gBmp.Dispose();
 		}
 
 		private static void solution_08()
