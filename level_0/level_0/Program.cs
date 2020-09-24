@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
 using Point = System.Drawing.Point;
 using Size = System.Drawing.Size;
+using Timer = System.Threading.Timer;
 
 namespace level_0
 {
@@ -131,6 +133,8 @@ namespace level_0
 						Console.WriteLine("используемых цифр должны соответствовать обычному для");
 						Console.WriteLine("электронных часов семисегментному шаблону.");
 						solution_09();
+						Graphics g = Graphics.FromHwnd(GetConsoleWindow());
+						g.Clear(Color.Black);
 						break;
 					}
 				case 10:
@@ -227,7 +231,8 @@ namespace level_0
 						Console.WriteLine("19-498(б). Дан символьный файл f. Найти самое длинное слово");
 						Console.WriteLine("среди слов, вторая буква которых есть е;");
 						Console.WriteLine("если таких слов с наибольшей длиной несколько, то найти последнее. Если");
-						Console.WriteLine("таких слов нет вообще, то сообщить об этом. Решить эту задачу без ограничения на число символов в слове.");
+						Console.WriteLine("таких слов нет вообще, то сообщить об этом.");
+						Console.WriteLine("Решить эту задачу без ограничения на число символов в слове.");
 						solution_19();
 						Console.ReadKey(true);
 						break;
@@ -449,7 +454,20 @@ namespace level_0
 
 		private static void solution_19()
 		{
-			
+			string path = @"..\..\res\solution_19.txt";
+			Console.WriteLine();
+
+			using (StreamReader sr = new StreamReader(path))
+			{
+				string line;
+				while ((line = sr.ReadLine()) != null)
+				{
+					Console.WriteLine(line);
+					List<string> ls = line
+						.Split(' ')
+						.SkipWhile(s => s[1]=='е').ToList();
+				}
+			}
 		}
 
 		private static void solution_18()
@@ -1025,7 +1043,17 @@ namespace level_0
 			Console.WriteLine("\nЖми кнопку для рисования...");
 			Console.ReadKey(true);
 			Console.Clear();
+			Timer timer = new Timer(new TimerCallback(TimerTick),null,500,500);
+			Console.ReadKey(true);
+			timer.Dispose();
+		}
+
+		static bool isPoints = true;
+
+		private static void TimerTick(object state)
+		{
 			Graphics g = Graphics.FromHwnd(GetConsoleWindow());
+			g.Clear(Color.Black);
 			Brush brush = Brushes.Aqua;
 			Point[,,] fullNumberTemplate =
 				new Point[,,]
@@ -1265,15 +1293,15 @@ namespace level_0
 						true,true,true,true,true,false,true,true
 					}
 				};
-			string time = 
-				(DateTime.Now.Hour < 10 ? ("0" + DateTime.Now.Hour.ToString()) : DateTime.Now.Hour.ToString()) + 
+			string time =
+				(DateTime.Now.Hour < 10 ? ("0" + DateTime.Now.Hour.ToString()) : DateTime.Now.Hour.ToString()) +
 				(DateTime.Now.Minute < 10 ? ("0" + DateTime.Now.Minute.ToString()) : DateTime.Now.Minute.ToString());
 
 			for (int i = 0; i < time.Length; ++i)
 			{
 				for (int j = 0; j < 8; ++j)
 				{
-					if (!arraySegments[time[i]-'0', j])
+					if (!arraySegments[time[i] - '0', j])
 					{
 						continue;
 					}
@@ -1289,11 +1317,16 @@ namespace level_0
 				}
 			}
 
-			g.FillEllipse(brush, 270, 100, 10, 10);
-			g.FillEllipse(brush, 270, 160, 10, 10);
-			Console.WriteLine("Это просто снимок времени в текущий момент");
-			Console.ReadKey(true);
-			g.Clear(Color.Black);
+			if (isPoints)
+			{
+				g.FillEllipse(brush, 270, 100, 10, 10);
+				g.FillEllipse(brush, 270, 160, 10, 10);
+				isPoints = false;
+			}
+			else
+			{
+				isPoints = true;
+			}
 		}
 
 		private static void solution_08()
