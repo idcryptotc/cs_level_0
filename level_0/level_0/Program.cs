@@ -456,17 +456,30 @@ namespace level_0
 		{
 			string path = @"..\..\res\solution_19.txt";
 			Console.WriteLine();
+			string result = "";
 
 			using (StreamReader sr = new StreamReader(path))
 			{
 				string line;
 				while ((line = sr.ReadLine()) != null)
 				{
-					Console.WriteLine(line);
-					List<string> ls = line
-						.Split(' ')
-						.SkipWhile(s => s[1]=='е').ToList();
+					Console.WriteLine("\t" + line);
+					List<string> ls = line.Split(' ').ToList().FindAll(l => l.IndexOf('е') == 1);
+
+					foreach (string str in ls)
+					{
+						result = result.Length < str.Length ? str : result;
+					}
 				}
+			}
+
+			if (result.Length == 0)
+			{
+				Console.WriteLine("\nТаких слов нет");
+			}
+			else
+			{
+				Console.WriteLine("\nРезультат: {0}", result);
 			}
 		}
 
