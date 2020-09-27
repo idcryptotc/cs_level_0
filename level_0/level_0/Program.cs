@@ -247,12 +247,12 @@ namespace level_0
 					}
 				case 21:
 					{
-						Console.WriteLine("21-1046. «Задача о рюкзаке». Имеется т различных предметов,");
+						Console.WriteLine("21-1046. \"Задача о рюкзаке\". Имеется m различных предметов,");
 						Console.WriteLine("известны вес каждого предмета и его стоимость.Определить, какие");
 						Console.WriteLine("предметы надо положить в рюкзак, чтобы общий вес не превышал");
-						Console.WriteLine("заданной границы, а общая стоимость была максимальна.Решить эту");
-						Console.WriteLine("задачу для т предметов, веса которых в килограммах равны m p, ..., p 1,");
-						Console.WriteLine("стоимости - m c, ..., c 1.Вес рюкзака не должен превышать 50кг.");
+						Console.WriteLine("заданной границы, а общая стоимость была максимальна. Решить эту");
+						Console.WriteLine("задачу для m предметов, веса которых в килограммах равны p1, ..., pm,");
+						Console.WriteLine("стоимости - c1, ..., cm. Вес рюкзака не должен превышать 50кг.");
 						solution_21();
 						Console.ReadKey(true);
 						break;
@@ -444,12 +444,113 @@ namespace level_0
 
 		private static void solution_21()
 		{
-			
+		input_21:
+			Console.Write("Введите количество предметов: ");
+			int m;
+
+			try
+			{
+				m = Convert.ToInt32(Console.ReadLine());
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+				goto input_21;
+			}
+
+			if (m <= 0)
+			{
+				Console.WriteLine("Тебя в поход не возьмут... Введи снова");
+				goto input_21;
+			}
+
+			const int P = 50;
+			Random r = new Random();
+			int[] p = new int[m];
+			int[] c = new int[m];
+			double[] pc = new double[m];
+
+			for (int i = 0; i < m; ++i)
+			{
+				p[i] = r.Next(1, 51);
+				c[i] = r.Next(1, 1001);
+				Console.WriteLine("{0}. Вес: {1},\tСтоимость: {2}\tВес/Стоимость: {3}",
+					i + 1, p[i], c[i], pc[i] = (double)c[i] / (double)p[i]);
+			}
+
+			for (int i = 0; i < m-1; ++i)
+			{
+				for (int j = i; j < m; ++j)
+				{
+					if (pc[i] < pc[j])
+					{
+						int temp1 = p[i];
+						int temp2 = c[i];
+						double temp = pc[i];
+						p[i] = p[j];
+						c[i] = c[j];
+						pc[i] = pc[j];
+						p[j] = temp1;
+						c[j] = temp2;
+						pc[j] = temp;
+					}
+				}
+			}
+
+			for (int i = 0; i < m - 1; ++i)
+			{
+				for (int j = i; j < m; ++j)
+				{
+					if (p[i] < p[j] && pc[i] == pc[j])
+					{
+						int temp1 = p[i];
+						int temp2 = c[i];
+						double temp = pc[i];
+						p[i] = p[j];
+						c[i] = c[j];
+						pc[i] = pc[j];
+						p[j] = temp1;
+						c[j] = temp2;
+						pc[j] = temp;
+					}
+				}
+			}
+
+			int result = 0;
+
+			for (int i = 0; i < m; ++i)
+			{
+				if (result + p[i] <= P)
+				{
+					result += p[i];
+					Console.WriteLine("Вес: " + p[i] + "\tСтоимость: " + c[i]);
+				}
+			}
+
 		}
 
 		private static void solution_20()
 		{
-			
+			Console.WriteLine("Введите текст: ");
+			string text = Console.ReadLine();
+			int count = 0;
+			int countMax = 0;
+
+			for (int i = 0; i < text.Length; ++i)
+			{
+				if (text[i] >= '0' && text[i] <= '9')
+				{
+					++count;
+				}
+				else
+				{
+					countMax = count > countMax ? count : countMax;
+					count = 0;
+				}
+			}
+
+			countMax = count > countMax ? count : countMax;
+			Console.WriteLine("Результат: {0}", countMax);
 		}
 
 		private static void solution_19()
