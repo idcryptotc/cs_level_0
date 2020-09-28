@@ -284,24 +284,12 @@ namespace level_0
 					}
 				case 24:
 					{
-						Console.WriteLine("24-1028. Даны натуральные числа т, a , ..., an 1 . В");
-						Console.WriteLine("последовательности n a, ..., a 1 выбрать подпоследовательность");
-						Console.WriteLine("i i ik a, a, ..., a 1 2(i i i n k 0 ≤ < < ...< ≤ 1 2) такую, что a a m i ik + ...+ = 1.");
+						Console.WriteLine("24-1028. Даны натуральные числа m, a1, ..., an. В");
+						Console.WriteLine("последовательности a1, ..., an выбрать подпоследовательность");
+						Console.WriteLine("ai1, ai2, ..., aik (0 <= i1 < i2 < ... < ik <= n)");
+						Console.WriteLine("такую, что ai1 + ... + aik = m.");
 						Console.WriteLine("Если такую подпоследовательность выбрать невозможно, то следует");
 						Console.WriteLine("сообщить об этом.");
-						Console.WriteLine("При решении этой задачи полезно следующее соображение.");
-						Console.WriteLine("Чтобы выбрать подпоследовательность из последовательности");
-						Console.WriteLine("n a, ..., a 1, нужно про каждый член n a, ..., a 1, решить, принимается он в");
-						Console.WriteLine("подпоследовательность или нет.Может возникнуть следующая");
-						Console.WriteLine("ситуация: относительно членов i a, ..., a 1(i < n) приняты какие - то");
-						Console.WriteLine("решения, после этого обнаружилось, что, как бы мы ни распоряжались");
-						Console.WriteLine("остальными п - i членами, нам все равно не удастся получить");
-						Console.WriteLine("подпоследовательность, удовлетворяющую поставленному условию");
-						Console.WriteLine("(например, если сумма нескольких положительных чисел больше m, то");
-						Console.WriteLine("невозможно добавить к ним ещё несколько положительных чисел так,");
-						Console.WriteLine("чтобы сумма стала равна m).В этом случае можно сразу исключить из");
-						Console.WriteLine("рассмотрения все подпоследовательности, первые члены которых");
-						Console.WriteLine("выбраны из a, ..., ai 1 в соответствии с принятыми решениями.");
 						solution_24();
 						Console.ReadKey(true);
 						break;
@@ -429,7 +417,80 @@ namespace level_0
 
 		private static void solution_24()
 		{
-			
+		input_24:
+			Console.Write("Введите натуральное m: ");
+			int m;
+
+			try
+			{
+				m = Convert.ToInt32(Console.ReadLine());
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+				goto input_24;
+			}
+
+			if (m <= 0)
+			{
+				Console.WriteLine("Подумай и введи снова");
+				goto input_24;
+			}
+
+			const int N = 100;
+			Random r = new Random();
+			int[] array = new int[N];
+
+			for (int i = 0; i < N; ++i)
+			{
+				array[i] = r.Next(1, N + 1);
+				Console.Write(array[i] + (i % 10 == 9 ? "\n" : "\t"));
+			}
+
+			int sum = 0;
+			int indexStart = 0;
+			int indexFinish = 0;
+
+			for (int i = 0; i < N; ++i)
+			{
+				sum = 0;
+
+				for (int j = i; j < N; ++j)
+				{
+					sum += array[j];
+
+					if (m < sum)
+					{
+						sum = 0;
+						break;
+					}
+
+					if (m == sum)
+					{
+						indexStart = i;
+						indexFinish = j;
+						i = N;
+						break;
+					}
+				}
+			}
+
+			if (sum == m)
+			{
+				Console.WriteLine((1 + indexStart) + "..." + (1 + indexFinish));
+				Console.Write("m = ");
+
+				for (int i = indexStart; i < indexFinish; ++i)
+				{
+					Console.Write("{0} + ", array[i]);
+				}
+
+				Console.WriteLine(array[indexFinish]);
+			}
+			else
+			{
+				Console.WriteLine("Такой последовательности нет");
+			}
 		}
 
 		private static void solution_23()
