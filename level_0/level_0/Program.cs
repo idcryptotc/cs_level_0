@@ -434,7 +434,90 @@ namespace level_0
 
 		private static void solution_23()
 		{
-			
+			Console.WriteLine("Введите текст: ");
+			string text = Console.ReadLine();
+			char[] textTemp = text.ToCharArray();
+			Dictionary<char, char> alphabet = new Dictionary<char, char>();
+			{
+				alphabet['а'] = 'б';
+				alphabet['б'] = 'в';
+				alphabet['в'] = 'г';
+				alphabet['г'] = 'д';
+				alphabet['д'] = 'е';
+				alphabet['е'] = 'ё';
+				alphabet['ё'] = 'ж';
+				alphabet['ж'] = 'з';
+				alphabet['з'] = 'и';
+				alphabet['и'] = 'й';
+				alphabet['й'] = 'к';
+				alphabet['к'] = 'л';
+				alphabet['л'] = 'м';
+				alphabet['м'] = 'н';
+				alphabet['н'] = 'о';
+				alphabet['о'] = 'п';
+				alphabet['п'] = 'р';
+				alphabet['р'] = 'с';
+				alphabet['с'] = 'т';
+				alphabet['т'] = 'у';
+				alphabet['у'] = 'ф';
+				alphabet['ф'] = 'х';
+				alphabet['х'] = 'ц';
+				alphabet['ц'] = 'ч';
+				alphabet['ч'] = 'ш';
+				alphabet['ш'] = 'щ';
+				alphabet['щ'] = 'ъ';
+				alphabet['ъ'] = 'ы';
+				alphabet['ы'] = 'ь';
+				alphabet['ь'] = 'э';
+				alphabet['э'] = 'ю';
+				alphabet['ю'] = 'я';
+				alphabet['я'] = 'а';
+				alphabet['А'] = 'Б';
+				alphabet['Б'] = 'В';
+				alphabet['В'] = 'Г';
+				alphabet['Г'] = 'Д';
+				alphabet['Д'] = 'Е';
+				alphabet['Е'] = 'Ё';
+				alphabet['Ё'] = 'Ж';
+				alphabet['Ж'] = 'З';
+				alphabet['З'] = 'И';
+				alphabet['И'] = 'Й';
+				alphabet['Й'] = 'К';
+				alphabet['К'] = 'Л';
+				alphabet['Л'] = 'М';
+				alphabet['М'] = 'Н';
+				alphabet['Н'] = 'О';
+				alphabet['О'] = 'П';
+				alphabet['П'] = 'Р';
+				alphabet['Р'] = 'С';
+				alphabet['С'] = 'Т';
+				alphabet['Т'] = 'У';
+				alphabet['У'] = 'Ф';
+				alphabet['Ф'] = 'Х';
+				alphabet['Х'] = 'Ц';
+				alphabet['Ц'] = 'Ч';
+				alphabet['Ч'] = 'Ш';
+				alphabet['Ш'] = 'Щ';
+				alphabet['Щ'] = 'Ъ';
+				alphabet['Ъ'] = 'Ы';
+				alphabet['Ы'] = 'Ь';
+				alphabet['Ь'] = 'Э';
+				alphabet['Э'] = 'Ю';
+				alphabet['Ю'] = 'Я';
+				alphabet['Я'] = 'А';
+			}
+
+			for (int i = 0; i < text.Length; ++i)
+			{
+				try
+				{
+					textTemp[i] = alphabet[textTemp[i]];
+				}
+				catch (Exception) { }
+			}
+
+			text = new string(textTemp);
+			Console.WriteLine(text);
 		}
 
 		private static void solution_22()
