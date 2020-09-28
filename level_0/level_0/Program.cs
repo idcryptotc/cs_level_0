@@ -261,12 +261,12 @@ namespace level_0
 					{
 						Console.WriteLine("22-839(а). Зафиксируем натуральное k и перестановку чисел 1, ..., k");
 						Console.WriteLine("(ее можно задать с помощью последовательности натуральных чисел");
-						Console.WriteLine("k p, ..., p 1, в которую входит каждое из чисел 1, . . . , k). При шифровке в");
+						Console.WriteLine("p1, ..., pk, в которую входит каждое из чисел 1, ..., k). При шифровке в");
 						Console.WriteLine("исходном тексте к каждой из последовательных групп по k символов");
-						Console.WriteLine("применяется зафиксированная перестановка.Пусть k = 4 и");
-						Console.WriteLine("перестановка есть 3, 2, 4, 1.Тогда группа символов");
-						Console.WriteLine("1 2 3 4 s, s, s, s заменяется на 3 2 4 1 s, s, s, s.Если в последней группе меньше");
-						Console.WriteLine("четырех символов, то к ней добавляются пробелы.Пользуясь");
+						Console.WriteLine("применяется зафиксированная перестановка. Пусть k = 4 и");
+						Console.WriteLine("перестановка есть 3, 2, 4, 1. Тогда группа символов");
+						Console.WriteLine("s1, s2, s3, s4 заменяется на s3, s2, s4, s1. Если в последней группе меньше");
+						Console.WriteLine("четырех символов, то к ней добавляются пробелы. Пользуясь");
 						Console.WriteLine("изложенным способом зашифровать данный текст;");
 						solution_22();
 						Console.ReadKey(true);
@@ -439,7 +439,78 @@ namespace level_0
 
 		private static void solution_22()
 		{
-			
+		input_22:
+			Console.Write("Введите натуральное k: ");
+			uint k;
+
+			try
+			{
+				k = Convert.ToUInt32(Console.ReadLine());
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+				goto input_22;
+			}
+
+			if (k == 0)
+			{
+				Console.WriteLine("k - не натуральное");
+				goto input_22;
+			}
+
+			int[] swapArray = new int[k];
+			Random r = new Random();
+
+			for (int i = 1; i <= k; ++i)
+			{
+				int j = r.Next(0, (int)k);
+
+				if (swapArray[j] == 0)
+				{
+					swapArray[j] = i;
+				}
+				else
+				{
+					--i;
+				}
+			}
+
+			for(int i=0;i<k;++i)
+			{
+				Console.Write(swapArray[i] + " ");
+			}
+
+			Console.WriteLine("\nВведите текст для зашифровки: ");
+			string text = Console.ReadLine();
+			string ciphertext;
+
+			if (text.Length % k != 0)
+			{
+				ciphertext = text + (new string(new char[k - text.Length % k])).Replace('\0', ' ');
+			}
+			else
+			{
+				ciphertext = text;
+			}
+
+			int ptrInciphertext = 0;
+
+			do
+			{
+				char[] ciphertextTemp = ciphertext.ToCharArray();
+
+				for (int i = ptrInciphertext; i < k + ptrInciphertext; ++i)
+				{
+					ciphertextTemp[i] = ciphertext[swapArray[i - ptrInciphertext] + ptrInciphertext - 1];
+				}
+
+				ciphertext = new string(ciphertextTemp);
+				ptrInciphertext += (int)k;
+			}
+			while (ptrInciphertext < ciphertext.Length);
+
+			Console.WriteLine(ciphertext);
 		}
 
 		private static void solution_21()
