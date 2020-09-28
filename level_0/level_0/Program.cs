@@ -408,7 +408,7 @@ namespace level_0
 
 		private static void solution_26()
 		{
-			
+			solution_15();
 		}
 
 		struct rect
