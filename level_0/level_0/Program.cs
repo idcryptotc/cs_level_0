@@ -29,7 +29,7 @@ namespace level_0
 			{
 				Console.Clear();
 				Console.Write("Блок 3. Вариант 1. Введите номер задачи (0 - выход): ");
-				
+
 				try
 				{
 					numberTask = Convert.ToInt32(Console.ReadLine());
@@ -324,7 +324,8 @@ namespace level_0
 						Console.WriteLine("27-1036. Лабиринт может быть задан матрицей соединений, в");
 						Console.WriteLine("которой для каждой пары комнат указано, соединены ли они");
 						Console.WriteLine("коридором. Даны матрица соединений для лабиринта");
-						Console.WriteLine("из п комнат и номера комнат i, j(1≤ i ≤ n, 1≤ j ≤ n).Построить путь из");
+						Console.WriteLine("из n комнат и номера комнат i, j");
+						Console.WriteLine("(1 <= i <= n, 1 <= j <= n). Построить путь из");
 						Console.WriteLine("комнаты с номером i в комнату с номером j.");
 						solution_27();
 						Console.ReadKey(true);
@@ -388,22 +389,75 @@ namespace level_0
 
 		private static void solution_30()
 		{
-			
+
 		}
 
 		private static void solution_29()
 		{
-			
+
 		}
 
 		private static void solution_28()
 		{
-			
+
 		}
 
 		private static void solution_27()
 		{
-			
+			int n;
+
+			do
+			{
+				Console.WriteLine("Введите n: ");
+				int.TryParse(Console.ReadLine(), out n);
+			}
+			while (n <= 0);
+
+			int[,] arrayIn = new int[n, n];
+			Random r = new Random();
+			Console.WriteLine("Матрица соединений: ");
+
+			for (int i = 0; i < n; ++i)
+			{
+				for (int j = 0; j < n; ++j)
+				{
+					arrayIn[i, j] = i == j ? 0 : r.Next() % 6 == 0 ? 1 : 0;
+					Console.Write(arrayIn[i, j] + " ");
+				}
+
+				Console.WriteLine();
+			}
+
+			for (int i = 0; i < n; ++i)
+			{
+				int[] flag = new int[n];
+
+				for (int j = 0; j < n; ++j)
+				{
+					if (arrayIn[i, j] != 0 && flag[j] == 0)
+					{
+						for (int k = 0; k < n; ++k)
+						{
+							arrayIn[i, k] = Convert.ToInt32(arrayIn[i, k] | arrayIn[j, k]);
+						}
+
+						flag[j] = 1;
+						j = -1;
+					}
+				}
+			}
+
+			Console.WriteLine("Матрица связей: ");
+
+			for (int i = 0; i < n; ++i)
+			{
+				for (int j = 0; j < n; ++j)
+				{
+					Console.Write(arrayIn[i, j] + " ");
+				}
+
+				Console.WriteLine();
+			}
 		}
 
 		private static void solution_26()
