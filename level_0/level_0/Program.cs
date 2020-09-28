@@ -296,9 +296,10 @@ namespace level_0
 					}
 				case 25:
 					{
-						Console.WriteLine("25-1023. Дана целочисленная матрица [a i j ]i n j m a =1,..., ; =1,..., .");
+						Console.WriteLine("25-1023. Дана целочисленная матрица [aij] (i=1...n, j=1...m).");
 						Console.WriteLine("Прямоугольником в этой матрице будем называть множество всех");
-						Console.WriteLine("элементов i j a, для которых выполнено 1≤ p ≤ i ≤ q ≤ n, 1≤ r ≤ j ≤ s ≤ m,");
+						Console.WriteLine("элементов aij, для которых выполнено 1 <= p <= i <= q <= n,");
+						Console.WriteLine("1 <= r <= j <= s <= m,");
 						Console.WriteLine("где p, q, r, s - натуральные числа, задающие прямоугольник.");
 						Console.WriteLine("Площадью прямоугольника назовем число элементов в нем.");
 						Console.WriteLine("Среди прямоугольников матрицы, состоящих целиком из нулей, найти");
@@ -410,9 +411,125 @@ namespace level_0
 			
 		}
 
+		struct rect
+		{
+			public int square;
+			public int p;
+			public int q;
+			public int r;
+			public int s;
+
+			public override string ToString()
+			{
+				return string.Format("x1 = {2}, x2 = {3}, y1 = {0}, y2 = {1}", p, q, r, s);
+			}
+		};
+
 		private static void solution_25()
 		{
-			
+		input_25_1:
+			Console.Write("Введите m: ");
+			int m;
+
+			try
+			{
+				m = Convert.ToInt32(Console.ReadLine());
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+				goto input_25_1;
+			}
+
+			if (m <= 0)
+			{
+				Console.WriteLine("Подумай и введи снова");
+				goto input_25_1;
+			}
+
+		input_25_2:
+			Console.Write("Введите n: ");
+			int n;
+
+			try
+			{
+				n = Convert.ToInt32(Console.ReadLine());
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+				goto input_25_2;
+			}
+
+			if (n <= 0)
+			{
+				Console.WriteLine("Подумай и введи снова");
+				goto input_25_2;
+			}
+
+			Random rand = new Random();
+			int[,] array = new int[m, n];
+
+			for (int i = 0; i < m; ++i)
+			{
+				for (int j = 0; j < n; ++j)
+				{
+					array[i, j] = rand.Next(0, 2);
+					Console.Write(array[i, j] + " ");
+				}
+
+				Console.WriteLine();
+			}
+
+			List<rect> stack = new List<rect>();
+			rect rt;
+
+			for (int i = 0; i < m; ++i)
+			{
+				for (int j = 0; j < n; ++j)
+				{
+					rt = new rect();
+					
+					if (array[i, j] == 0)
+					{
+						rt.p = i;
+						rt.r = j;
+						int n1 = n;
+
+						for (rt.q = rt.p; rt.q < m; ++rt.q)
+						{
+							if (array[rt.q, rt.r] == 1)
+							{
+								break;
+							}
+
+							for (rt.s = rt.r; rt.s < n1; ++rt.s)
+							{
+								if (array[rt.q, rt.s] == 1)
+								{
+									n1 = rt.s;
+									--rt.s;
+									rt.square = (rt.q - rt.p + 1) * (rt.s - rt.r + 1);
+									stack.Add(rt);
+									break;
+								}
+
+								if (rt.s == n1 - 1)
+								{
+									rt.square = (rt.q - rt.p + 1) * (rt.s - rt.r + 1);
+									stack.Add(rt);
+								}
+							}
+						}
+					}
+				}
+			}
+
+			var x = stack.Max(s => s.square);
+			var y = stack.Find(s => s.square == x);
+
+			Console.WriteLine("Самый большой прямоугольник: {0} нулей", x);
+			Console.WriteLine("Один из прямоугольников: {0}", y.ToString());
 		}
 
 		private static void solution_24()
