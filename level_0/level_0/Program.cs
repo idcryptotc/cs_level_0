@@ -393,6 +393,74 @@ namespace level_0
 
 		private static void solution_29()
 		{
+			int score = 100;
+			int bet;
+			int num;
+
+			while(true)
+			{
+				Console.Clear();
+				Console.WriteLine("Очки: {0}", score);
+
+				do
+				{
+					Console.Write("Укажите ставку: ");
+					int.TryParse(Console.ReadLine(), out bet);
+				}
+				while (bet == 0);
+
+				score -= bet;
+				int ct = Console.CursorTop;
+				Console.SetCursorPosition(6, 0);
+				Console.Write(score + "   ");
+				Console.SetCursorPosition(0, ct);
+
+				do
+				{
+					Console.Write("Загадайте число от 2 до 12: ");
+					int.TryParse(Console.ReadLine(), out num);
+				}
+				while (num == 0);
+
+				Random r = new Random();
+				int a = r.Next(2, 7);
+				int b = r.Next(2, 7);
+				int result = a + b;
+				Console.WriteLine("Выпали числа: {0} и {1}.\nИтоговое число: {2}", a, b, result);
+
+				if (result==num)
+				{
+					Console.WriteLine("Ваш выигрыш: {0}", bet * 4);
+					score += bet * 4;
+					ct = Console.CursorTop;
+					Console.SetCursorPosition(6, 0);
+					Console.Write(score + "   ");
+					Console.SetCursorPosition(0, ct);
+				}
+				else
+				{
+					if (num > 7 && result > 7 || num < 7 && result < 7)
+					{
+						Console.WriteLine("Ваш выигрыш: {0}", bet);
+						score += bet;
+						ct = Console.CursorTop;
+						Console.SetCursorPosition(6, 0);
+						Console.Write(score + "   ");
+						Console.SetCursorPosition(0, ct);
+					}
+					else
+					{
+						Console.WriteLine("Вы проиграли!");
+					}
+				}
+
+				Console.WriteLine("Жми кнопку для новой ставки или 0 для выхода...");
+
+				if(Console.ReadKey().KeyChar == '0')
+				{
+					return;
+				}
+			}
 
 		}
 		class Bullet
