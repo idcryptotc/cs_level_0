@@ -359,18 +359,7 @@ namespace level_0
 					}
 				case 30:
 					{
-						Console.WriteLine("30-1027. Правильное скобочное выражение получается из");
-						Console.WriteLine("некоторого математического выражения, содержащего круглые");
-						Console.WriteLine("скобки, вычеркиванием всех знаков, кроме круглых скобок. Например,");
-						Console.WriteLine("из выражения a - b(c + 2(x + y(z + 1))) + a(c + x) получается");
-						Console.WriteLine("правильное скобочное выражение((( )))(). Более точное описание");
-						Console.WriteLine("множества правильных скобочных выражений:");
-						Console.WriteLine("1) () - правильное скобочное выражение;");
-						Console.WriteLine("2) если P - правильное скобочное выражение, то");
-						Console.WriteLine(" (P) - правильное скобочное выражение;");
-						Console.WriteLine("3) если P и Q - правильные скобочные выражения, то");
-						Console.WriteLine(" PQ - правильное скобочное выражение.");
-						Console.WriteLine("Даны натуральное число n и последовательность символов");
+						Console.WriteLine("30-1027. Даны натуральное число n и последовательность символов");
 						Console.WriteLine("c1, ..., c2n, каждый из которых - круглая скобка. Определить, является");
 						Console.WriteLine("ли последовательность c1, ..., c2n правильным скобочным выражением.");
 						solution_30();
@@ -388,7 +377,47 @@ namespace level_0
 
 		private static void solution_30()
 		{
+			int n;
 
+			do
+			{
+				Console.Write("Введите n: ");
+				int.TryParse(Console.ReadLine(), out n);
+			}
+			while (n <= 0);
+
+			Random r = new Random();
+			char[] array = new char[2 * n];
+
+			for (int i = 0; i < 2 * n; ++i)
+			{
+				array[i] = r.Next(0, 2) == 0 ? '(' : ')';
+			}
+
+			Console.WriteLine("Скобочное выражение:");
+			Console.WriteLine(array);
+
+			for (int i = 1; ; ++i)
+			{
+				int length = array.Length;
+				array = new string(array).Replace("()", "").ToCharArray();
+
+				if (array.Length == 0)
+				{
+					Console.WriteLine("Это правильное скобочное выражение");
+					break;
+				}
+
+				if (length > array.Length)
+				{
+					Console.WriteLine("{1}. {0}", new string(array), i);
+				}
+				else
+				{
+					Console.WriteLine("Это не правильное скобочное выражение");
+					break;
+				}
+			}
 		}
 
 		private static void solution_29()
