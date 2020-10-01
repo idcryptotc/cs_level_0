@@ -334,25 +334,24 @@ namespace level_0
 				case 28:
 					{
 						Console.WriteLine("28-996. «Сбей самолет». По экрану летят вражеские самолеты.");
-						Console.WriteLine("Цель - сбить их.Пусковая установка находится в нижней строке");
-						Console.WriteLine("экрана.Пусковую установку можно перемещать по строке вперед и");
+						Console.WriteLine("Цель - сбить их. Пусковая установка находится в нижней строке");
+						Console.WriteLine("экрана. Пусковую установку можно перемещать по строке вперед и");
 						Console.WriteLine("назад.");
 						solution_28();
-						Console.ReadKey(true);
 						break;
 					}
 				case 29:
 					{
 						Console.WriteLine("29-987. «Кости». Играющий называет любое число в диапазоне от");
-						Console.WriteLine("2 до 12 и ставку, которую он делает в этот ход.Программа с помощью");
-						Console.WriteLine("датчика случайных чисел дважды выбирает числа от 1 до 6(«бросает");
-						Console.WriteLine("кубик», на гранях которого цифры от 1 до 6).Если сумма выпавших");
+						Console.WriteLine("2 до 12 и ставку, которую он делает в этот ход. Программа с помощью");
+						Console.WriteLine("датчика случайных чисел дважды выбирает числа от 1 до 6 (\"бросает");
+						Console.WriteLine("кубик\", на гранях которого цифры от 1 до 6). Если сумма выпавших");
 						Console.WriteLine("цифр меньше 7 и играющий задумал число меньшее 7, он выигрывает");
-						Console.WriteLine("сделанную ставку.Если сумма выпавших цифр больше 7 и играющий");
+						Console.WriteLine("сделанную ставку. Если сумма выпавших цифр больше 7 и играющий");
 						Console.WriteLine("задумал число большее 7, он также выигрывает сделанную ставку.");
 						Console.WriteLine("Если играющий угадал сумму цифр, он получает в четыре раза больше");
-						Console.WriteLine("очков, чем сделанная ставка.Ставка проиграна, если не имеет место ни");
-						Console.WriteLine("одна из описанных ситуаций.В начальный момент у играющего 100");
+						Console.WriteLine("очков, чем сделанная ставка. Ставка проиграна, если не имеет место ни");
+						Console.WriteLine("одна из описанных ситуаций. В начальный момент у играющего 100");
 						Console.WriteLine("очков.");
 						solution_29();
 						Console.ReadKey(true);
@@ -362,18 +361,18 @@ namespace level_0
 					{
 						Console.WriteLine("30-1027. Правильное скобочное выражение получается из");
 						Console.WriteLine("некоторого математического выражения, содержащего круглые");
-						Console.WriteLine("скобки, вычеркиванием всех знаков, кроме круглых скобок.Например,");
+						Console.WriteLine("скобки, вычеркиванием всех знаков, кроме круглых скобок. Например,");
 						Console.WriteLine("из выражения a - b(c + 2(x + y(z + 1))) + a(c + x) получается");
-						Console.WriteLine("правильное скобочное выражение((( )))().Более точное описание");
+						Console.WriteLine("правильное скобочное выражение((( )))(). Более точное описание");
 						Console.WriteLine("множества правильных скобочных выражений:");
-						Console.WriteLine("1)() - правильное скобочное выражение;");
-						Console.WriteLine("2) если P -правильное скобочное выражение, то (P) -");
-						Console.WriteLine("правильное скобочное выражение;");
-						Console.WriteLine("3) если P и Q -правильные скобочные выражения, то PQ -");
-						Console.WriteLine("правильное скобочное выражение.");
-						Console.WriteLine("Даны натуральное число п и последовательность символов");
-						Console.WriteLine("c c n 1 2 , ..., , каждый из которых - круглая скобка.Определить, является");
-						Console.WriteLine("ли последовательность n c c1 2 , ..., правильным скобочным выражением.");
+						Console.WriteLine("1) () - правильное скобочное выражение;");
+						Console.WriteLine("2) если P - правильное скобочное выражение, то");
+						Console.WriteLine(" (P) - правильное скобочное выражение;");
+						Console.WriteLine("3) если P и Q - правильные скобочные выражения, то");
+						Console.WriteLine(" PQ - правильное скобочное выражение.");
+						Console.WriteLine("Даны натуральное число n и последовательность символов");
+						Console.WriteLine("c1, ..., c2n, каждый из которых - круглая скобка. Определить, является");
+						Console.WriteLine("ли последовательность c1, ..., c2n правильным скобочным выражением.");
 						solution_30();
 						Console.ReadKey(true);
 						break;
@@ -396,10 +395,339 @@ namespace level_0
 		{
 
 		}
+		class Bullet
+		{
+			public Point p;
+			public char c;
+			public Timer t;
+			public int index;
 
+			public Bullet(Point p0, char c0)
+			{
+				p = p0;
+				c = c0;
+				t = null;
+				index = 0;
+			}
+		}
+
+		class Level
+		{
+			public static bool[,] enemies;
+			public static char enemyStyle;
+			public static Point location;
+			public static bool isRun;
+			public static int index;
+			public static bool isEnd;
+			public static Timer levelRun;
+			public static int score;
+			public static bool isGameOver;
+			public static string start;
+		}
+
+		static List<Bullet> lb = new List<Bullet>();
 		private static void solution_28()
 		{
+			Console.WriteLine("Жми кнопку");
+			Console.ReadKey(true);
+			Console.Clear();
+			char[] guns = "┴╨╧╩".ToCharArray();
+			char[] bullets = "\'\"°¤".ToCharArray();
+			char[] enemies = "\x3\x4\x5\x6".ToCharArray();
 
+			for (int i = 0; i < 25; ++i)
+			{
+				Console.SetCursorPosition(19, i);
+				Console.Write("||");
+				Console.SetCursorPosition(60, i);
+				Console.Write("||");
+			}
+
+			Console.SetCursorPosition(65, 1);
+			Console.Write("Уровень");
+			Console.SetCursorPosition(68, 3);
+			Level.index = 0;
+			Console.Write(Level.index + 1);
+			Console.SetCursorPosition(66, 5);
+			Console.Write("Сбито");
+			Console.SetCursorPosition(68, 7);
+			Level.score = 0;
+			Console.Write(Level.score);
+			Console.CursorVisible = false;
+			char input = ' ';
+			Point gun = new Point(40, 23);
+			Console.SetCursorPosition(gun.X, gun.Y);
+			Console.Write(guns[Level.index]);
+			Level.enemies = new bool[5, 32];
+			Level.isRun = false;
+			Level.isEnd = false;
+			Level.location = new Point();
+			Level.start = "Жми кнопку!";
+
+			while (true)
+			{
+				input = (char)Console.ReadKey(true).Key;
+
+				if (input == '\x1b')
+				{
+					lock (locker)
+					{
+						Level.levelRun.Dispose();
+						
+						foreach (var l in lb)
+						{
+							l.t.Dispose();
+						}
+
+						Console.CursorVisible = true;
+						Console.SetCursorPosition(53, 1);
+					}
+					break;
+				}
+
+				if (!Level.isRun)
+				{
+					Level.isRun = true;
+					Level.enemyStyle = enemies[Level.index];
+					Level.location.X = 25;
+					Level.location.Y = 1;
+					Level.isEnd = false;
+
+					for (int i = 0; i < 5; ++i)
+					{
+						for (int j = i % 2; j < 32; j+=2)
+						{
+							Level.enemies[i, j] = true;
+						}
+					}
+
+					Level.levelRun = new Timer(new TimerCallback(LevelGame), null, 0, 2000);
+				}
+
+				if(Level.isEnd)
+				{
+					if(Level.isGameOver)
+					{
+						lock(locker)
+						{
+							Console.SetCursorPosition(68, 3);
+							Console.Write(' ');
+							Console.SetCursorPosition(30, 3);
+							Console.Write("█   █  ███  █   █");
+							Console.SetCursorPosition(30, 4);
+							Console.Write(" █ █  █   █ █   █");
+							Console.SetCursorPosition(30, 5);
+							Console.Write("  █   █   █ █   █");
+							Console.SetCursorPosition(30, 6);
+							Console.Write("  █   █   █ █   █");
+							Console.SetCursorPosition(30, 7);
+							Console.Write("  █    ███   ███");
+
+							Console.SetCursorPosition(27, 9);
+							Console.Write("█      ███   ████ █████");
+							Console.SetCursorPosition(27, 10);
+							Console.Write("█     █   █ █     █    ");
+							Console.SetCursorPosition(27, 11);
+							Console.Write("█     █   █  ███  █████");
+							Console.SetCursorPosition(27, 12);
+							Console.Write("█     █   █     █ █    ");
+							Console.SetCursorPosition(27, 13);
+							Console.Write("█████  ███  ████  █████");
+
+							foreach (var l in lb)
+							{
+								l.t.Dispose();
+							}
+						}
+
+						Console.ReadKey(true);
+						break;
+					}
+					
+					Level.isRun = false;
+					++Level.index;
+
+					if (Level.index < 4)
+					{
+						lock (locker)
+						{
+							Console.SetCursorPosition(68, 3);
+							Console.Write(Level.index + 1);
+							Console.SetCursorPosition(gun.X, gun.Y);
+							Console.Write(guns[Level.index]);
+						}
+					}
+					else
+					{
+						lock (locker)
+						{
+							Console.SetCursorPosition(68, 3);
+							Console.Write(' ');
+							Console.SetCursorPosition(30, 3);
+							Console.Write("█   █  ███  █   █");
+							Console.SetCursorPosition(30, 4);
+							Console.Write(" █ █  █   █ █   █");
+							Console.SetCursorPosition(30, 5);
+							Console.Write("  █   █   █ █   █");
+							Console.SetCursorPosition(30, 6);
+							Console.Write("  █   █   █ █   █");
+							Console.SetCursorPosition(30, 7);
+							Console.Write("  █    ███   ███");
+
+							Console.SetCursorPosition(30, 9);
+							Console.Write("█   █  ███  █   █");
+							Console.SetCursorPosition(30, 10);
+							Console.Write("█   █   █   ██  █");
+							Console.SetCursorPosition(30, 11);
+							Console.Write("█ █ █   █   █ █ █");
+							Console.SetCursorPosition(30, 12);
+							Console.Write("██ ██   █   █  ██");
+							Console.SetCursorPosition(30, 13);
+							Console.Write("█   █  ███  █   █");
+							
+							foreach(var l in lb)
+							{
+								l.t.Dispose();
+							}
+						}
+
+						Console.ReadKey(true);
+						break;
+					}
+				}
+
+				switch (input)
+				{
+				case '\x25':
+					lock (locker)
+					{
+						Console.SetCursorPosition(gun.X, gun.Y);
+						Console.Write(" ");
+						gun.X = gun.X > 21 ? --gun.X : gun.X;
+						Console.SetCursorPosition(gun.X, gun.Y);
+						Console.Write(guns[Level.index]);
+					}
+					break;
+				case '\x27':
+					lock (locker)
+					{
+						Console.SetCursorPosition(gun.X, gun.Y);
+						Console.Write(" ");
+						gun.X = gun.X < 59 ? ++gun.X : gun.X;
+						Console.SetCursorPosition(gun.X, gun.Y);
+						Console.Write(guns[Level.index]);
+					}
+					break;
+				case '\x20':
+					Bullet bullet = new Bullet(new Point(gun.X, 22), bullets[Level.index]);
+					lb.Add(bullet);
+					lb[lb.Count - 1].index = lb.Count - 1;
+					bullet.t = new Timer(new TimerCallback(bulletTick), lb[lb.Count - 1], 50, 50);
+					break;
+				}
+			}
+
+			Console.CursorVisible = true;
+			Console.SetCursorPosition(53, 1);
+		}
+
+		private static void LevelGame(object state)
+		{
+			lock (locker)
+			{
+				Console.SetCursorPosition(Level.location.X, Level.location.Y);
+				++Level.location.Y;
+
+				for (int i = 0; i < 32; ++i)
+				{
+					Console.Write(' ');
+				}
+
+				for (int i = 0; i < 5 && i < 22 - Level.location.Y; ++i)
+				{
+					Console.SetCursorPosition(Level.location.X, Level.location.Y + i);
+
+					for (int j = 0; j < 32; ++j)
+					{
+						Console.Write(Level.enemies[i, j] ? Level.enemyStyle : ' ');
+					}
+				}
+
+				if (Level.location.Y >= 18)
+				{
+					for (int i = 0; i < 32; ++i)
+					{
+						if (Level.enemies[22 - Level.location.Y, i])
+						{
+							Level.levelRun.Dispose();
+							Level.isEnd = true;
+							Level.isGameOver = true;
+							Console.SetCursorPosition(30, 5);
+							Console.Write(Level.start);
+							return;
+						}
+					}
+				}
+			}
+		}
+
+		static object locker = new object();
+		private static void bulletTick(object state)
+		{
+			lock (locker)
+			{
+				Bullet x = (Bullet)state;
+				Console.SetCursorPosition(x.p.X, x.p.Y);
+				Console.Write(" ");
+				--x.p.Y;
+
+				if 
+					(
+						x.p.Y > Level.location.Y + 4 
+						|| x.p.Y < Level.location.Y
+						|| x.p.X < Level.location.X
+						|| x.p.X > Level.location.X + 31
+					)
+				{
+					Console.SetCursorPosition(x.p.X, x.p.Y);
+					Console.Write(x.c);
+				}
+				else
+				{
+					if (Level.enemies[x.p.Y - Level.location.Y, x.p.X - Level.location.X])
+					{
+						Level.enemies[x.p.Y - Level.location.Y, x.p.X - Level.location.X] = false;
+						Console.SetCursorPosition(x.p.X, x.p.Y);
+						Console.Write(' ');
+						x.p.Y = 0;
+						++Level.score;
+
+						if (Level.score % 80 == 0)
+						{
+							Level.isEnd = true;
+							Level.levelRun.Dispose();
+							Console.SetCursorPosition(30, 5);
+							Console.Write(Level.start);
+						}
+					}
+					else
+					{
+						Console.SetCursorPosition(x.p.X, x.p.Y);
+						Console.Write(x.c);
+					}
+				}
+
+				if (x.p.Y == 0)
+				{
+					Console.SetCursorPosition(x.p.X, x.p.Y);
+					Console.Write(" ");
+					x.t.Dispose();
+					lb.Remove(x);
+				}
+
+				Console.SetCursorPosition(68, 7);
+				Console.Write(Level.score);
+			}
 		}
 
 		private static void solution_27()
@@ -1543,7 +1871,7 @@ namespace level_0
 			Console.WriteLine("\nЖми кнопку для рисования...");
 			Console.ReadKey(true);
 			Console.Clear();
-			Timer timer = new Timer(new TimerCallback(TimerTick),null,500,500);
+			Timer timer = new Timer(new TimerCallback(TimerTick), null, 500, 500);
 			Console.ReadKey(true);
 			timer.Dispose();
 		}
